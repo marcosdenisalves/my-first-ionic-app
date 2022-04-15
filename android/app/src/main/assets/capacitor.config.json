@@ -2,5 +2,15 @@
 	"appId": "io.ionic.starter",
 	"appName": "myApp",
 	"webDir": "www",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"plugins": {
+		"keyboard": {
+			"resize": "body",
+			"style": "dark",
+			"resizeOnFullScreen": true
+		}
+	},
+	"server": {
+		"url": "http://192.168.0.11:8100"
+	}
 }
