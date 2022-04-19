@@ -18,5 +18,13 @@ export class AppComponent {
     private platform: Platform,
     @Optional() private routerOutlet?: IonRouterOutlet
     ) {
+    this.platform.backButton.subscribeWithPriority(-1, () => {
+      if (this.routerOutlet && !this.routerOutlet.canGoBack()) {}
+        App.exitApp();
+    });
+  }
+
+  getBackButtonText() {
+    return 'Do Not Go Back';
   }
 }

@@ -13,7 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [
     BrowserModule, IonicModule.forRoot({
       rippleEffect: false,
-      mode: 'md'
+      mode: 'md',
     }),
     AppRoutingModule
   ],
