@@ -11,11 +11,11 @@ import { AppRoutingModule } from './app-routing.module';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    AppRoutingModule,
     BrowserModule, IonicModule.forRoot({
       rippleEffect: false,
       mode: 'md',
-    }),
-    AppRoutingModule
+    })
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

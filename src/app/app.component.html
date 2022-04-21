@@ -27,7 +27,7 @@
 
   <ion-content class="ion-padding">
     <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-      <ion-fab-button>
+      <ion-fab-button (click)="navigate()">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
     </ion-fab>
@@ -39,3 +39,4 @@
     </ion-toolbar>
   </ion-footer>
 </ion-app>
+<router-outlet></router-outlet>
