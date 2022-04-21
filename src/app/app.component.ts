@@ -2,11 +2,10 @@ import { IonRouterOutlet, Platform } from '@ionic/angular';
 import { Component, Optional } from '@angular/core';
 import { App } from '@capacitor/app';
 
-interface TabsCustomEvent extends CustomEvent {
-  detail: { tab: string };
-  target: HTMLIonTabsElement;
+interface MenuCustomEvent<T = any> extends CustomEvent {
+  detail: T;
+  target: HTMLIonMenuElement;
 }
-
 
 @Component({
   selector: 'app-root',
