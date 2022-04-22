@@ -14,6 +14,36 @@
   </ion-header>
 
   <ion-content class="ion-padding">
-    <ion-label>New View</ion-label>
+    <ion-item>
+      <ion-label position="floating">Nome</ion-label>
+      <ion-input
+        type="text"
+        autofocus="true"
+        placeholder="Digite o nome da conta"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Valor</ion-label>
+      <ion-input
+        type="number"
+        placeholder="Digite o valor da conta"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label >Data de Vencimento</ion-label>
+      <ion-input [value]="dateValue2"></ion-input>
+      <ion-button fill="clear" id="open-date-input-2">
+        <ion-icon icon="calendar"></ion-icon>
+      </ion-button>
+      <ion-popover trigger="open-date-input-2" show-backdrop="false">
+        <ng-template>
+          <ion-datetime
+            #popoverDatetime2
+            presentation="date"
+            (ionChange)="dateValue2 = formatDate(popoverDatetime2.value)"
+          ></ion-datetime>
+        </ng-template>
+      </ion-popover>
+    </ion-item>
   </ion-content>
 </ion-app>
