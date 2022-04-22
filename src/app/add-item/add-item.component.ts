@@ -14,7 +14,7 @@ export class AddItemComponent implements OnInit {
   }
 
   returnToHome() {
-    return this.router.navigate(['/']);
+    return this.router.navigate(['/home']);
   }
 
   save() {
