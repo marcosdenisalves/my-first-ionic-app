@@ -4,12 +4,13 @@ import { AddItemComponent } from './add-item.component';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
+import { MaskPipe } from 'ngx-mask';
 
 const routes: Routes = [
   {
     path: '',
     component: AddItemComponent,
-  }
+  },
 ];
 
 @NgModule({
@@ -17,9 +18,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
   exports: [RouterModule],
-  declarations: [AddItemComponent]
+  declarations: [AddItemComponent],
+  providers: [ MaskPipe ],
 })
 export class AddItemComponentModule {}

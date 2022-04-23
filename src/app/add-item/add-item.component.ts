@@ -1,7 +1,9 @@
+import { MaskPipe } from 'ngx-mask';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { format, parseISO } from 'date-fns';
 import { IonDatetime } from '@ionic/angular';
+import { ptBR } from 'date-fns/locale';
 
 @Component({
   selector: 'app-add-item',
@@ -13,11 +15,11 @@ export class AddItemComponent implements OnInit {
 
   dateValue = '';
   dateValue2 = '';
+  valor: any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private maskPipe: MaskPipe) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   returnToHome() {
     return this.router.navigate(['/home']);
@@ -28,6 +30,13 @@ export class AddItemComponent implements OnInit {
   }
 
   formatDate(value: string) {
-    return format(parseISO(value), 'MMM dd yyyy');
+    return format(parseISO(value), 'dd MMM yyyy', { locale: ptBR });
+  }
+
+  updateWithMask(event) {
+    this.valor = this.maskPipe.transform(
+      event.currentTarget.value,
+      '000.00.00'
+    );
   }
 }
