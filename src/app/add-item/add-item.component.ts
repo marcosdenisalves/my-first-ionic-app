@@ -1,4 +1,3 @@
-import { MaskPipe } from 'ngx-mask';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { format, parseISO } from 'date-fns';
@@ -17,7 +16,7 @@ export class AddItemComponent implements OnInit {
   dateValue2 = '';
   valor: any;
 
-  constructor(private router: Router, private maskPipe: MaskPipe) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
@@ -31,12 +30,5 @@ export class AddItemComponent implements OnInit {
 
   formatDate(value: string) {
     return format(parseISO(value), 'dd MMM yyyy', { locale: ptBR });
-  }
-
-  updateWithMask(event) {
-    this.valor = this.maskPipe.transform(
-      event.currentTarget.value,
-      '000.00.00'
-    );
   }
 }

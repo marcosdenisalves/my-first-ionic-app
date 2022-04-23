@@ -1,10 +1,10 @@
+import { IonicCurrencyMaskModule } from '@thiagoprz/ionic-currency-mask';
 import { RouterModule, Routes } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { AddItemComponent } from './add-item.component';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
-import { MaskPipe } from 'ngx-mask';
 
 const routes: Routes = [
   {
@@ -18,10 +18,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+      IonicCurrencyMaskModule,
     RouterModule.forChild(routes),
   ],
   exports: [RouterModule],
   declarations: [AddItemComponent],
-  providers: [ MaskPipe ],
 })
 export class AddItemComponentModule {}
