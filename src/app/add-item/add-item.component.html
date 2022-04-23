@@ -15,45 +15,48 @@
 
   <ion-content class="ion-padding">
     <ion-list>
-      <ion-item>
-        <ion-label position="floating">Título</ion-label>
-        <ion-input
-          type="text"
-          autofocus="true"
-          placeholder="Digite o nome da conta"
-        ></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Valor</ion-label>
-        <ion-input
-          maxlength="15"
-          type="tel"
-          [value]="valor"
-          placeholder="Digite o valor da conta"
-          currencyMask decimal="," thousand="."
-        ></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Data de Vencimento</ion-label>
-        <ion-input placeholder="Informe a data de vencimento" [value]="dateValue2"></ion-input>
-        <ion-button class="ion-margin-top" fill="clear" slot="end" id="open-date-input-2">
-          <ion-icon icon="calendar"></ion-icon>
-        </ion-button>
-        <ion-popover trigger="open-date-input-2" show-backdrop="false">
-          <ng-template>
-            <ion-datetime
-              #popoverDatetime2
-              presentation="date"
-              showDefaultButtons="true"
-              (ionChange)="dateValue2 = formatDate(popoverDatetime2.value)"
-            ></ion-datetime>
-          </ng-template>
-        </ion-popover>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Descrição</ion-label>
-        <ion-textarea placeholder="Informe uma descrição para a sua conta aqui"></ion-textarea>
-      </ion-item>
+      <form [formGroup]="newItemGroup">
+        <ion-item>
+          <ion-label position="floating">Título</ion-label>
+          <ion-input
+            type="text"
+            autofocus="true"
+            formControlName="title"
+            placeholder="Digite o nome da conta"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Valor</ion-label>
+          <ion-input
+            type="tel"
+            maxlength="15"
+            formControlName="value"
+            placeholder="Digite o valor da conta"
+            currencyMask decimal="," thousand="."
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Data de Vencimento</ion-label>
+          <ion-input  readOnly placeholder="Selecione a data de vencimento" formControlName="dueDate"></ion-input>
+          <ion-button class="ion-margin-top" fill="clear" slot="end" id="open-date-input-2">
+            <ion-icon icon="calendar"></ion-icon>
+          </ion-button>
+          <ion-popover trigger="open-date-input-2" show-backdrop="false">
+            <ng-template>
+              <ion-datetime
+                #popoverDatetime2
+                presentation="date"
+                showDefaultButtons="true"
+                (ionChange)="dueDate.setValue(formatDate(popoverDatetime2.value))"
+              ></ion-datetime>
+            </ng-template>
+          </ion-popover>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Descrição</ion-label>
+          <ion-textarea formControlName="description" placeholder="Informe uma descrição"></ion-textarea>
+        </ion-item>
+      </form>
     </ion-list>
   </ion-content>
 </ion-app>
