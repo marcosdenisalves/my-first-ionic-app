@@ -4,20 +4,20 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { format, parseISO } from 'date-fns';
 import { IonDatetime } from '@ionic/angular';
 import { ptBR } from 'date-fns/locale';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-add-item',
-  templateUrl: './add-item.component.html',
-  styleUrls: ['./add-item.component.scss'],
+  selector: 'app-form-item',
+  templateUrl: './form-item.component.html',
+  styleUrls: ['./form-item.component.scss'],
 })
-export class AddItemComponent implements OnInit {
+export class FormItemComponent implements OnInit {
   @ViewChild(IonDatetime, { static: true }) datetime: IonDatetime;
 
   newItemGroup: FormGroup = this.fb.group({
-    title: [''],
-    value: [''],
-    dueDate: [''],
+    title: ['', Validators.required],
+    value: ['', Validators.required],
+    dueDate: ['', Validators.required],
     description: [''],
   });
 

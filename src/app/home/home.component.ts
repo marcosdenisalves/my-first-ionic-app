@@ -13,6 +13,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {}
 
   navigate() {
-    this.router.navigate(['/add']);
+    this.router.navigate(['/form']);
   }
 }

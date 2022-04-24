@@ -25,6 +25,9 @@
             placeholder="Digite o nome da conta"
           ></ion-input>
         </ion-item>
+        <div *ngIf="title.invalid && (title.dirty || title.touched)">
+          <span class="error-message">O campo título não pode estar vazio.</span>
+        </div>
         <ion-item>
           <ion-label position="floating">Valor</ion-label>
           <ion-input
@@ -35,6 +38,9 @@
             currencyMask decimal="," thousand="."
           ></ion-input>
         </ion-item>
+        <div *ngIf="title.invalid && (value.dirty || value.touched)">
+          <span class="error-message">O campo valor não pode estar vazio.</span>
+        </div>
         <ion-item>
           <ion-label position="floating">Data de Vencimento</ion-label>
           <ion-input  readOnly placeholder="Selecione a data de vencimento" formControlName="dueDate"></ion-input>
@@ -52,6 +58,9 @@
             </ng-template>
           </ion-popover>
         </ion-item>
+        <div *ngIf="dueDate.invalid && (dueDate.dirty || dueDate.touched)">
+          <span class="error-message">O campo data vencimento não pode estar vazio.</span>
+        </div>
         <ion-item>
           <ion-label position="floating">Descrição</ion-label>
           <ion-textarea formControlName="description" placeholder="Informe uma descrição"></ion-textarea>

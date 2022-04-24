@@ -8,7 +8,7 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'add', loadChildren: () => import('./add-item/add-item.module').then(m => m.AddItemComponentModule),
+    path: 'form', loadChildren: () => import('./form-item/form-item.module').then(m => m.FormItemComponentModule),
   },
   {
     path: '',
