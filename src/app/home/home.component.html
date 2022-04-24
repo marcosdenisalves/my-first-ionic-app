@@ -25,7 +25,20 @@
   </ng-template>
 </ion-popover>
 
-<ion-content class="ion-padding">
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let item of accountPaybleList;">
+      <ion-item color="medium">
+        <ion-label>Título</ion-label>
+        <ion-label>Data Vencimento</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ item.title }}</ion-label>
+        <ion-label>{{ item.dueDate }}</ion-label>
+        <ion-icon size="large" color="success" slot="end" name="checkmark-circle-outline"></ion-icon>
+      </ion-item>
+    </ion-card>
+  </ion-list>
   <ion-fab horizontal="end" vertical="bottom" slot="fixed">
     <ion-fab-button (click)="navigate()">
       <ion-icon name="add"></ion-icon>

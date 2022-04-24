@@ -6,7 +6,7 @@
           <ion-icon class="ion-icon" name="arrow-back-outline"></ion-icon>
         </ion-button>
         <ion-title>Novo Item</ion-title>
-        <ion-button (click)="save()">
+        <ion-button type="submit" [disabled]="itemFormGroup.invalid" (click)="onSubmit()">
           <ion-icon class="ion-icon" name="checkmark-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
@@ -15,7 +15,7 @@
 
   <ion-content class="ion-padding">
     <ion-list>
-      <form [formGroup]="newItemGroup">
+      <form [formGroup]="itemFormGroup" (ngSubmit)="onSubmit()">
         <ion-item>
           <ion-label position="floating">Título</ion-label>
           <ion-input

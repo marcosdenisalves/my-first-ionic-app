@@ -1,9 +1,10 @@
-import { HomeComponent } from './home/home.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { RouteReuseStrategy } from '@angular/router';
-import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './home/home.component';
+import { RouteReuseStrategy } from '@angular/router';
 import { AppComponent } from './app.component';
 
 
@@ -11,6 +12,7 @@ import { AppComponent } from './app.component';
   declarations: [AppComponent, HomeComponent],
   entryComponents: [],
   imports: [
+    ScrollingModule,
     AppRoutingModule,
     BrowserModule, IonicModule.forRoot(),
   ],

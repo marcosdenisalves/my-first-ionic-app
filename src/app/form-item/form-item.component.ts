@@ -1,10 +1,12 @@
+import { AppService } from './../app.service';
 /* eslint-disable @typescript-eslint/member-ordering */
-import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { format, parseISO } from 'date-fns';
+import { AccountPayble } from '../models/account-payble';
 import { IonDatetime } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { ptBR } from 'date-fns/locale';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form-item',
@@ -14,24 +16,37 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class FormItemComponent implements OnInit {
   @ViewChild(IonDatetime, { static: true }) datetime: IonDatetime;
 
-  newItemGroup: FormGroup = this.fb.group({
+  itemFormGroup: FormGroup = this.fb.group({
     title: ['', Validators.required],
     value: ['', Validators.required],
     dueDate: ['', Validators.required],
     description: [''],
   });
 
-  constructor(private router: Router, private fb: FormBuilder) {}
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private appService: AppService
+  ) {}
 
-  ngOnInit() {}
-
-  returnToHome() {
-    return this.router.navigate(['/home']);
+  ngOnInit() {
+    this.itemFormGroup.reset();
   }
 
-  save() {
-    console.log(this.newItemGroup);
-    return this.returnToHome();
+  returnToHome() {
+    this.router.navigate(['/home']);
+  }
+
+  onSubmit() {
+    this.appService.accountPayble.next(
+      new AccountPayble(
+        this.title.value,
+        this.value.value,
+        this.dueDate.value,
+        this.description.value
+      )
+    );
+    this.returnToHome();
   }
 
   formatDate(value: string) {
@@ -39,18 +54,18 @@ export class FormItemComponent implements OnInit {
   }
 
   get title() {
-    return this.newItemGroup.get('title') as FormControl;
+    return this.itemFormGroup.get('title') as FormControl;
   }
 
   get value() {
-    return this.newItemGroup.get('value') as FormControl;
+    return this.itemFormGroup.get('value') as FormControl;
   }
 
   get dueDate() {
-    return this.newItemGroup.get('dueDate') as FormControl;
+    return this.itemFormGroup.get('dueDate') as FormControl;
   }
 
   get description() {
-    return this.newItemGroup.get('description') as FormControl;
+    return this.itemFormGroup.get('description') as FormControl;
   }
 }
