@@ -34,7 +34,7 @@
       </ion-item>
       <ion-item>
         <ion-label>{{ item.title }}</ion-label>
-        <ion-label>{{ item.dueDate }}</ion-label>
+        <ion-label class="margin-start">{{ formatService.formatDate(item.dueDate) }}</ion-label>
         <ion-icon size="large" color="success" slot="end" name="checkmark-circle-outline"></ion-icon>
       </ion-item>
     </ion-card>

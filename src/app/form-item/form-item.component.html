@@ -34,7 +34,7 @@
             type="tel"
             maxlength="15"
             formControlName="value"
-            placeholder="Digite o valor da conta"
+            placeholder="R$ 0,00"
             currencyMask decimal="," thousand="."
           ></ion-input>
         </ion-item>
@@ -43,22 +43,26 @@
         </div>
         <ion-item>
           <ion-label position="floating">Data de Vencimento</ion-label>
-          <ion-input  readOnly placeholder="Selecione a data de vencimento" formControlName="dueDate"></ion-input>
+          <ion-input readonly="true" placeholder="Selecione a data de vencimento" formControlName="date"></ion-input>
           <ion-button class="ion-margin-top" fill="clear" slot="end" id="open-date-input-2">
             <ion-icon icon="calendar"></ion-icon>
           </ion-button>
-          <ion-popover trigger="open-date-input-2" show-backdrop="false">
+          <ion-popover
+            trigger="open-date-input-2"
+            class="popover-custom-position">
             <ng-template>
               <ion-datetime
-                #popoverDatetime2
-                presentation="date"
-                showDefaultButtons="true"
-                (ionChange)="dueDate.setValue(formatDate(popoverDatetime2.value))"
-              ></ion-datetime>
+                #popoverDateTime
+                presentation="date">
+              <ion-buttons slot="buttons">
+                <ion-button color="primary" (click)="reset()">Limpar</ion-button>
+                <ion-button color="primary" (click)="confirm()">Confirmar</ion-button>
+              </ion-buttons>
+              </ion-datetime>
             </ng-template>
           </ion-popover>
         </ion-item>
-        <div *ngIf="dueDate.invalid && (dueDate.dirty || dueDate.touched)">
+        <div *ngIf="date.invalid && (date.dirty || date.touched)">
           <span class="error-message">O campo data vencimento não pode estar vazio.</span>
         </div>
         <ion-item>

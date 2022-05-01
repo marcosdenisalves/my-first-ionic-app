@@ -1,7 +1,8 @@
 import { AccountPayble } from './../models/account-payble';
-import { AppService } from './../app.service';
+import { SubjectService } from '../services/subject.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormatService } from '../services/format.service';
 
 @Component({
   selector: 'app-home',
@@ -19,12 +20,13 @@ export class HomeComponent implements OnInit {
   ];
 
   constructor(
-    private appService: AppService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private subjectService: SubjectService,
+    public formatService: FormatService
+  ) {}
 
   ngOnInit() {
-    this.appService.accountPayble.subscribe((accountPaybleItem: AccountPayble) => {
+    this.subjectService.accountPayble.subscribe((accountPaybleItem: AccountPayble) => {
       this.accountPaybleList.push(accountPaybleItem);
     });
   }

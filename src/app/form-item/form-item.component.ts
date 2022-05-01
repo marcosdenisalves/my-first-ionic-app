@@ -1,12 +1,11 @@
-import { AppService } from './../app.service';
 /* eslint-disable @typescript-eslint/member-ordering */
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { format, parseISO } from 'date-fns';
+import { SubjectService } from '../services/subject.service';
 import { AccountPayble } from '../models/account-payble';
+import { FormatService } from './../services/format.service';
 import { IonDatetime } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { ptBR } from 'date-fns/locale';
 
 @Component({
   selector: 'app-form-item',
@@ -14,43 +13,54 @@ import { ptBR } from 'date-fns/locale';
   styleUrls: ['./form-item.component.scss'],
 })
 export class FormItemComponent implements OnInit {
-  @ViewChild(IonDatetime, { static: true }) datetime: IonDatetime;
+  @ViewChild(IonDatetime) popoverDateTime: IonDatetime;
+  isPopoverOpen: boolean;
+  isoDateTime: string;
 
   itemFormGroup: FormGroup = this.fb.group({
     title: ['', Validators.required],
     value: ['', Validators.required],
-    dueDate: ['', Validators.required],
+    date: ['', Validators.required],
     description: [''],
   });
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private appService: AppService
+    private subjectService: SubjectService,
+    public formatService: FormatService
   ) {}
 
   ngOnInit() {
     this.itemFormGroup.reset();
   }
 
-  returnToHome() {
-    this.router.navigate(['/home']);
+  confirm() {
+    this.popoverDateTime.confirm(true).then(() => {
+      this.isoDateTime =  this.popoverDateTime.value;
+      this.date.setValue(this.formatService.formatDate(this.isoDateTime));
+    });
+  }
+
+  reset() {
+    this.popoverDateTime.reset();
   }
 
   onSubmit() {
-    this.appService.accountPayble.next(
+    this.subjectService.accountPayble.next(
       new AccountPayble(
         this.title.value,
         this.value.value,
-        this.dueDate.value,
+        this.isoDateTime,
         this.description.value
       )
     );
     this.returnToHome();
   }
 
-  formatDate(value: string) {
-    return format(parseISO(value), 'dd MMM yyyy', { locale: ptBR });
+  returnToHome() {
+    this.itemFormGroup.reset();
+    this.router.navigate(['/home']);
   }
 
   get title() {
@@ -61,8 +71,8 @@ export class FormItemComponent implements OnInit {
     return this.itemFormGroup.get('value') as FormControl;
   }
 
-  get dueDate() {
-    return this.itemFormGroup.get('dueDate') as FormControl;
+  get date() {
+    return this.itemFormGroup.get('date') as FormControl;
   }
 
   get description() {

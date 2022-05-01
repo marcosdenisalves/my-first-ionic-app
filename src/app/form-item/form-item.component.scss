@@ -2,6 +2,18 @@
   font-size: 24px;
 }
 
+.popover-custom-position {
+  --offset-y: -65px;
+  --offset-x: -65px;
+}
+
+@media screen and (orientation:landscape) {
+  .popover-custom-position {
+    --offset-y: -210px;
+    --offset-x: -295px;
+  }
+}
+
 .error-message {
   font-size: 14px;
   color: var(--ion-color-danger);
