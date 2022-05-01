@@ -27,15 +27,18 @@
 
 <ion-content>
   <ion-list>
-    <ion-card *ngFor="let item of accountPaybleList;">
+    <ion-card *ngFor="let item of accountPaybleList; index as i">
       <ion-item color="medium">
         <ion-label>Título</ion-label>
         <ion-label>Data Vencimento</ion-label>
+        <ion-button (click)="removeItem(i)" fill="clear" expand="block">
+          <ion-icon color="light" slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
       </ion-item>
-      <ion-item>
+      <ion-item class="custom-padding-item">
         <ion-label>{{ item.title }}</ion-label>
         <ion-label class="margin-start">{{ formatService.formatDate(item.dueDate) }}</ion-label>
-        <ion-button
+        <ion-button class="payed-button"
           (click)="item.payed = !item.payed"
           shape="round"
           size="default"

@@ -31,6 +31,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  removeItem(index: number) {
+    this.accountPaybleList.splice(index, 1);
+  }
+
   navigate() {
     this.router.navigate(['/form']);
   }

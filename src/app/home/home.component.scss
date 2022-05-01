@@ -1,6 +1,15 @@
 .padding-start {
   padding-left: 55px;
 }
+
 .margin-start {
-  margin-left: 90px;
+  margin-left: 25px;
+}
+
+.custom-padding-item {
+  --inner-padding-end: 0px;
+}
+
+.payed-button {
+  --padding-end: 18px;
 }
