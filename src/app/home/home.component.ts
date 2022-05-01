@@ -11,12 +11,12 @@ import { FormatService } from '../services/format.service';
 })
 export class HomeComponent implements OnInit {
   accountPaybleList: AccountPayble[] = [
-    // new AccountPayble(
-    //   'Conta de Energia',
-    //   '245,00',
-    //   '25 Julho 2022',
-    //   'Esta conta deve ser paga no prazo para obter descontos'
-    // )
+    new AccountPayble(
+      'Conta de Energia',
+      '245,00',
+      '2022-10-25T10:46:20Z',
+      'Esta conta deve ser paga no prazo para obter descontos'
+    )
   ];
 
   constructor(

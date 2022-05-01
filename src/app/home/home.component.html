@@ -35,7 +35,25 @@
       <ion-item>
         <ion-label>{{ item.title }}</ion-label>
         <ion-label class="margin-start">{{ formatService.formatDate(item.dueDate) }}</ion-label>
-        <ion-icon size="large" color="success" slot="end" name="checkmark-circle-outline"></ion-icon>
+        <ion-button
+          (click)="item.payed = !item.payed"
+          shape="round"
+          size="default"
+          fill="clear">
+          <ion-icon *ngIf="item.payed; else elseBlock"
+            name="checkmark-circle-outline"
+            size="large"
+            color="success"
+            slot="icon-only">
+          </ion-icon>
+          <ng-template #elseBlock>
+          <ion-icon name="close-circle-outline"
+            size="large"
+            color="danger"
+            slot="icon-only">
+          </ion-icon>
+        </ng-template>
+        </ion-button>
       </ion-item>
     </ion-card>
   </ion-list>
