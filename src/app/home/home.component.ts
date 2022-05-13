@@ -3,6 +3,7 @@ import { SubjectService } from '../services/subject.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormatService } from '../services/format.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,7 @@ import { FormatService } from '../services/format.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  toastMessage: string;
   accountPaybleList: AccountPayble[] = [
     new AccountPayble(
       'Conta de Energia',
@@ -22,13 +24,33 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private subjectService: SubjectService,
-    public formatService: FormatService
+    public formatService: FormatService,
+    public toastController: ToastController,
   ) {}
 
   ngOnInit() {
     this.subjectService.accountPayble.subscribe((accountPaybleItem: AccountPayble) => {
       this.accountPaybleList.push(accountPaybleItem);
     });
+  }
+
+  async presentToast(item: AccountPayble) {
+    const payed = item.payed = !item.payed;
+    this.validateToastMessage(payed);
+    await this.openToast();
+    return payed;
+  }
+
+  async openToast() {
+    const toast = await this.toastController.create({
+      message: this.toastMessage,
+      duration: 2000,
+    });
+    toast.present();
+  }
+
+  validateToastMessage(payed: boolean) {
+    this.toastMessage = payed ? 'Pagamento realizado com sucesso!' : 'Pagamento cancelado!';
   }
 
   removeItem(index: number) {

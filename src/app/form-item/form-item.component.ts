@@ -4,7 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SubjectService } from '../services/subject.service';
 import { AccountPayble } from '../models/account-payble';
 import { FormatService } from './../services/format.service';
-import { IonDatetime } from '@ionic/angular';
+import { DatetimeChangeEventDetail, IonDatetime } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,16 +12,17 @@ import { Router } from '@angular/router';
   templateUrl: './form-item.component.html',
   styleUrls: ['./form-item.component.scss'],
 })
-export class FormItemComponent implements OnInit {
+export class FormItemComponent implements OnInit, DatetimeChangeEventDetail {
   @ViewChild(IonDatetime) popoverDateTime: IonDatetime;
   isPopoverOpen: boolean;
   isoDateTime: string;
+  value?: string;
 
   itemFormGroup: FormGroup = this.fb.group({
-    title: ['', Validators.required],
-    value: ['', Validators.required],
     date: ['', Validators.required],
     description: [''],
+    ticketValue: ['', Validators.required],
+    title: ['', Validators.required],
   });
 
   constructor(
@@ -50,7 +51,7 @@ export class FormItemComponent implements OnInit {
     this.subjectService.accountPayble.next(
       new AccountPayble(
         this.title.value,
-        this.value.value,
+        this.ticketValue.value,
         this.isoDateTime,
         this.description.value
       )
@@ -67,8 +68,8 @@ export class FormItemComponent implements OnInit {
     return this.itemFormGroup.get('title') as FormControl;
   }
 
-  get value() {
-    return this.itemFormGroup.get('value') as FormControl;
+  get ticketValue() {
+    return this.itemFormGroup.get('ticketValue') as FormControl;
   }
 
   get date() {

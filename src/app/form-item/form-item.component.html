@@ -33,12 +33,12 @@
           <ion-input
             type="tel"
             maxlength="15"
-            formControlName="value"
+            formControlName="ticketValue"
             placeholder="R$ 0,00"
             currencyMask decimal="," thousand="."
           ></ion-input>
         </ion-item>
-        <div *ngIf="title.invalid && (value.dirty || value.touched)">
+        <div *ngIf="title.invalid && (ticketValue.dirty || ticketValue.touched)">
           <span class="error-message">O campo valor não pode estar vazio.</span>
         </div>
         <ion-item>

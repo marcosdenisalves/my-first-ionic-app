@@ -39,7 +39,7 @@
         <ion-label>{{ item.title }}</ion-label>
         <ion-label class="margin-start">{{ formatService.formatDate(item.dueDate) }}</ion-label>
         <ion-button class="payed-button"
-          (click)="item.payed = !item.payed"
+          (click)="presentToast(item)"
           shape="round"
           size="default"
           fill="clear">
