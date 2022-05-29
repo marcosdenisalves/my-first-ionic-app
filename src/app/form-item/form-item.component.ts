@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/member-ordering */
-import { StorageService } from './../services/form-item-service/storage.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DatetimeChangeEventDetail, IonDatetime } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { StorageService } from '../services/storage.service';
 import { FormatService } from './../services/format.service';
 import { AccountPayble } from './../models/account-payble';
 import { Router } from '@angular/router';
@@ -28,14 +29,15 @@ export class FormItemComponent implements OnInit, DatetimeChangeEventDetail {
   });
 
   constructor(
-    private router: Router,
-    private fb: FormBuilder,
     public formatService: FormatService,
-    private storageService: StorageService
-  ) {}
+    private fb: FormBuilder,
+    private router: Router,
+    private storageService: StorageService,
+  ) { }
 
   ngOnInit() {
     this.itemFormGroup.reset();
+    this.accountPaybleList = this.router.getCurrentNavigation().extras.state.list;
   }
 
   confirm() {
@@ -49,9 +51,9 @@ export class FormItemComponent implements OnInit, DatetimeChangeEventDetail {
     this.popoverDateTime.reset();
   }
 
-  async onSubmit() {
+  onSubmit() {
     this.accountPaybleList.push(this.createAccountPayble());
-    await this.storageService.set('accountPaybleList', this.accountPaybleList);
+    this.storageService.set('accountPaybleList', this.accountPaybleList);
     this.returnToHome();
   }
 

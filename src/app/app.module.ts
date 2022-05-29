@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage-angular';
@@ -7,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { RouteReuseStrategy } from '@angular/router';
 import { AppComponent } from './app.component';
+import { Drivers } from '@ionic/storage';
 
 
 @NgModule({
@@ -15,8 +18,8 @@ import { AppComponent } from './app.component';
   imports: [
     ScrollingModule,
     AppRoutingModule,
-    IonicStorageModule.forRoot(),
     BrowserModule, IonicModule.forRoot(),
+    IonicStorageModule.forRoot({ driverOrder: [CordovaSQLiteDriver._driver, Drivers.IndexedDB] }),
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, ],
   bootstrap: [AppComponent],

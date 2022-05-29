@@ -1,4 +1,4 @@
-import { StorageService } from './../services/form-item-service/storage.service';
+import { StorageService } from '../services/storage.service';
 import { AccountPayble } from './../models/account-payble';
 import { FormatService } from '../services/format.service';
 import { Component, OnInit } from '@angular/core';
@@ -21,8 +21,14 @@ export class HomeComponent implements OnInit {
     public toastController: ToastController,
   ) { }
 
-  ngOnInit() {
-    this.accountPaybleList.push(...this.storageService.get('accountPaybleList'));
+  async ngOnInit() {
+    await this.initAccountPaybleList();
+  }
+
+  async initAccountPaybleList() {
+    await this.storageService.init();
+    const accountPaybleList = await this.storageService.get('accountPaybleList');
+    this.accountPaybleList.push(...accountPaybleList);
   }
 
   async presentToast(item: AccountPayble) {
@@ -46,9 +52,10 @@ export class HomeComponent implements OnInit {
 
   removeItem(index: number) {
     this.accountPaybleList.splice(index, 1);
+    this.storageService.set('accountPaybleList', this.accountPaybleList);
   }
 
   navigate() {
-    this.router.navigate(['/form']);
+    this.router.navigate(['/form'], {state: { list: this.accountPaybleList }});
   }
 }
