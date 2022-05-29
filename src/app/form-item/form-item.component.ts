@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/member-ordering */
+import { StorageService } from './../services/form-item-service/storage.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { SubjectService } from '../services/subject.service';
-import { AccountPayble } from '../models/account-payble';
-import { FormatService } from './../services/format.service';
 import { DatetimeChangeEventDetail, IonDatetime } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormatService } from './../services/format.service';
+import { AccountPayble } from './../models/account-payble';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,6 +18,8 @@ export class FormItemComponent implements OnInit, DatetimeChangeEventDetail {
   isoDateTime: string;
   value?: string;
 
+  accountPaybleList: AccountPayble[] = [];
+
   itemFormGroup: FormGroup = this.fb.group({
     date: ['', Validators.required],
     description: [''],
@@ -28,8 +30,8 @@ export class FormItemComponent implements OnInit, DatetimeChangeEventDetail {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private subjectService: SubjectService,
-    public formatService: FormatService
+    public formatService: FormatService,
+    private storageService: StorageService
   ) {}
 
   ngOnInit() {
@@ -47,16 +49,19 @@ export class FormItemComponent implements OnInit, DatetimeChangeEventDetail {
     this.popoverDateTime.reset();
   }
 
-  onSubmit() {
-    this.subjectService.accountPayble.next(
-      new AccountPayble(
-        this.title.value,
-        this.ticketValue.value,
-        this.isoDateTime,
-        this.description.value
-      )
-    );
+  async onSubmit() {
+    this.accountPaybleList.push(this.createAccountPayble());
+    await this.storageService.set('accountPaybleList', this.accountPaybleList);
     this.returnToHome();
+  }
+
+  createAccountPayble() {
+    return new AccountPayble(
+      this.title.value,
+      this.ticketValue.value,
+      this.isoDateTime,
+      this.description.value
+    );
   }
 
   returnToHome() {
