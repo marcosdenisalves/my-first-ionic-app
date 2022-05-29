@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
     const payed = item.payed = !item.payed;
     this.validateToastMessage(payed);
     await this.openToast();
+    this.updateList();
     return payed;
   }
 
@@ -52,10 +53,14 @@ export class HomeComponent implements OnInit {
 
   removeItem(index: number) {
     this.accountPaybleList.splice(index, 1);
-    this.storageService.set('accountPaybleList', this.accountPaybleList);
+    this.updateList();
   }
 
   navigate() {
     this.router.navigate(['/form'], {state: { list: this.accountPaybleList }});
+  }
+
+  updateList() {
+    this.storageService.set('accountPaybleList', this.accountPaybleList);
   }
 }
